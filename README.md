@@ -11,29 +11,44 @@ This tool was built to address the exact operational risks that organizations fa
 * **SNI (Server Name Indication) Compatibility:** Fully supports SNI to isolate accurate certificates behind multi-tenant virtual hosts.
 * **DevOps Ready:** Generates standardized JSON to standard output (`stdout`) for easy pipeline integrations, alongside CSV exports for security audits.
 
-
 ## 📊 Proof of Concept & Real-World Validation (Case Studies)
 
-To demonstrate the scanner's stability, accuracy, and enterprise value, a comprehensive passive reconnaissance scan was executed across two entirely different infrastructure ecosystems: **Peru** and **Switzerland**. 
+To demonstrate the scanner's stability, multi-threading efficiency, and enterprise value, a passive reconnaissance scan was executed across two entirely different infrastructure ecosystems: **Peru** (111 targets) and **Switzerland** (169 targets). 
 
-The results uncovered distinct infrastructure vulnerabilities and operational patterns in both regions.
+The tool successfully extracted and categorized all anomalies based on their remaining lifespan.
 
-### 🇵🇪 Case Study 1: Peruvian Infrastructure (Visibilities & Shadow IT)
-**Target Profile:** Top 30 universities, major government branches, and core financial institutions.
-* **Shadow IT Discovery:** The scanner flagged critical blind spots in major public academic institutions. For instance, an undocumented subdomain (`paracas.unmsm.edu.pe`) was caught exposing an **expired self-signed certificate for over 2,178 days** (5+ years).
-* **ACME Automation Failures:** Detected an official university platform (`urp.edu.pe`) running a Let's Encrypt certificate that **expired 177 days ago**, indicating a silent failure in their automated certificate rotation scripts (e.g., Certbot) that went unmonitored.
+### 🇵🇪 Case Study 1: Peruvian Infrastructure (111 Targets Scanned)
+The scan targeted top-tier universities, government ministries, military institutions, and regional financial entities. Out of 111 hosts, **9 high-risk anomalies** were identified, revealing systematic visibility and automation challenges.
 
-### 🇨🇭 Case Study 2: Swiss Infrastructure (Operational Risk & Compliance)
-**Target Profile:** Cantonal government domains, local cantonal banks, transport, and national telecoms.
-* **Proactive Outage Prevention:** While Swiss financial and academic networks showed superior hygiene (100% trusted CAs like DigiCert and Sectigo), a high-priority risk was found on a primary target: **`swisscom.ch`** (Switzerland's leading telecom provider). The scanner caught a core certificate entering **CRITICAL status with only 13 days of lifespan remaining** before expiration. 
-* **Localization Validation:** The parser accurately decoded localized trusted Trust Service Providers (TSPs) like `SwissSign AG` (the issuer for Swisscom), verifying its readiness for European PKI standards.
+| Target Host | Organization Type | Certificate Authority (CA) | Days Until Expiration | Security Status / Context |
+| :--- | :--- | :--- | :--- | :--- |
+| `unmsm.edu.pe` | Public University | Self-Signed (`SomeOrganization`) | **-2,178 days** | 🚨 **Severe Shadow IT:** Abandoned test environment legacy endpoint active for 5+ years. |
+| `urp.edu.pe` | Private University | Let's Encrypt | **-177 days** | ❌ **Automation Failure:** Silent crash of automated ACME rotation scripts (`certbot`). |
+| `marina.mil.pe` | Military (Navy) | Let's Encrypt | **-136 days** | ❌ **Automation Failure:** Critical defense infrastructure missing automated renewal monitoring. |
+| `minsa.gob.pe` | Gov (Ministry of Health) | Sectigo Limited | **-100 days** | 🛑 **EXPIRED:** Public health platform running on an unrenewed commercial OV certificate. |
+| `uch.edu.pe` | Private University | GoDaddy.com, Inc. | **+8 days** | ⚠️ **CRITICAL:** Core academic infrastructure near immediate downtime. |
+| `minem.gob.pe` | Gov (Ministry of Energy) | Sectigo Limited | **+10 days** | ⚠️ **CRITICAL:** High-priority government domain approaching critical expiration threshold. |
+| `cajapaita.pe` | Financial Institution | Entrust Limited | **+13 days** | ⚠️ **CRITICAL:** Extended Validation (EV) banking certificate nearing expiration window. |
+| `agrobanco.com.pe`| State-Owned Bank | Sectigo Limited | **+16 days** | 🟨 **WARNING:** Financial platform operating inside the risk perimeter. |
+| `upao.edu.pe` | Private University | DigiCert Inc (GeoTrust) | **+19 days** | 🟨 **WARNING:** Academic infrastructure requires proactive rotation scheduling. |
+
+---
+
+### 🇨🇭 Case Study 2: Swiss Infrastructure (169 Targets Scanned)
+The scan targeted federal administration systems, cantonal networks, public utilities, and localized banking systems. Out of 169 hosts, **only 2 anomalies** were flagged. While Swiss infrastructure displays exceptional general hygiene (100% trusted public CAs, zero self-signed certificates), it remains vulnerable to human/operational latency.
+
+| Target Host | Organization Type | Certificate Authority (CA) | Days Until Expiration | Security Status / Context |
+| :--- | :--- | :--- | :--- | :--- |
+| `swisscom.ch` | National Telecom Provider | **SwissSign AG** | **+13 days** | ⚠️ **CRITICAL:** The nation's primary telecommunications infrastructure running on tight manual/operational tracking buffers. |
+| `zh.ch` | Gov (Canton of Zürich) | DigiCert Inc | **+15 days** | 🟨 **WARNING:** Critical regional government gateway operating within a narrow renewal window. |
 
 ### 🔄 Regional Comparison Insights
 
 | Risk Dimension | Peru (Developing IT Infrastructure) | Switzerland (Highly Regulated Environment) |
 | :--- | :--- | :--- |
-| **Root Issue** | **Lack of Asset Inventory:** High presence of forgotten servers, stale test environments, and insecure self-signed certs. | **Operational/Human Latency:** High compliance and trusted CAs, but dependencies on manual tracking leading to tight expiration windows. |
-| **Business Threat** | Security breaches through unmonitored, vulnerable legacy entry points (Shadow IT). | Unexpected operational downtime on high-traffic, critical infrastructure assets. |
+| **Data Metric** | **8.1% failure/risk rate** (9 out of 111 hosts flagged). | **1.1% risk rate** (2 out of 169 hosts flagged). |
+| **Root Cause** | **Lack of Asset Inventory:** High incidence of forgotten legacy systems, unmonitored free CAs, and insecure self-signed exposures. | **Operational Latency:** Superior asset tracking and premium trusted CAs, but bottlenecked by strict timelines and manual verification boundaries. |
+| **Business Threat** | Potential entry points for malicious exploitation via undocumented, unpatched legacy assets (*Shadow IT*). | Unexpected service downtime across high-traffic, critical critical infrastructure frameworks. |
 
 
 ## 💻 Technical Implementation Details
