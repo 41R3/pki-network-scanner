@@ -103,3 +103,9 @@ cd pki-network-scanner
 pip install cryptography
 #3 Basic Scan Execution
 python3 cert_scanner.py example.com --csv results.csv
+```
+
+### 🌐 Network Telemetry & Traffic Behavior (Sniffnet Audit)
+<img width="1873" height="1118" alt="Captura desde 2026-06-13 13-59-36" src="https://github.com/user-attachments/assets/41d27f2b-29a8-4b76-a206-29b8ac431d24" />
+<img width="1863" height="1118" alt="Captura desde 2026-06-13 14-01-54" src="https://github.com/user-attachments/assets/454c59a2-afd2-49be-9adc-e28c3c97888a" />
+
