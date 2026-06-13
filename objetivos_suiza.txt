@@ -1,0 +1,40 @@
+
+# GOBIERNO FEDERAL Y CANTONAL
+
+admin.ch          # Gobierno Federal Suizo
+sg.ch             # St. Gallen
+zh.ch             #  Zürich
+be.ch             # Berna
+ge.ch             # Ginebra
+vd.ch             #  Vaud
+ti.ch             #  Ticino
+bs.ch             # Basilea-Ciudad
+
+# UNIVERSIDADES SUIZAS (Massive Subdomains = Shadow IT)
+
+ost.ch            # OST
+ethz.ch           # ETH Zürich
+epfl.ch           # EPFL
+uzh.ch
+unisg.ch
+unibas.ch
+unibe.ch
+unige.ch
+
+
+# BANCOS CANTONALES Y ENTIDADES FINANCIERAS
+
+sgkb.ch           # St.Galler Kantonalbank
+zkb.ch            # Zürcher Kantonalbank
+bekb.ch           # Berner Kantonalbank
+bcv.ch            # Banque Cantonale Vaudoise
+ubs.com           # UBS
+postfinance.ch    #  correo suizo
+raiffeisen.ch     # Grupo Raiffeisen Suiza
+
+# INFRAESTRUCTURA Y SERVICIOS PÚBLICOS
+
+sbb.ch            # Ferrocarriles Federales Suizos (Trenes)
+swiss.com         # Líneas Aéreas Suizas
+bkw.ch            # Proveedor de energía/infraestructura
+swisscom.ch       # La empresa de telecomunicaciones
