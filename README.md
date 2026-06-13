@@ -91,4 +91,15 @@ ctx.verify_mode = ssl.CERT_NONE  # Discovery allows self-signed inspection
 with socket.create_connection((host, port), timeout=timeout) as sock:
     with ctx.wrap_socket(sock, server_hostname=host) as ssock:
         der_bytes = ssock.getpeercert(binary_form=True)
+```
 
+## 🛠️ Prerequisites & Installation
+```bash
+# 1. Clone this repository
+git clone [https://github.com/41R3/pki-network-scanner.git](https://github.com/41R3/pki-network-scanner.git)
+cd pki-network-scanner
+
+# 2. Install the required cryptographic dependency
+pip install cryptography
+#3 Basic Scan Execution
+python3 cert_scanner.py example.com --csv results.csv
