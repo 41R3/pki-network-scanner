@@ -55,6 +55,8 @@ The scan targeted top-tier universities, government ministries, military institu
 | `cajapaita.pe` | Financial Institution | Entrust Limited | **+13 days** | ⚠️ **CRITICAL:** Extended Validation (EV) banking certificate nearing expiration window. |
 | `agrobanco.com.pe`| State-Owned Bank | Sectigo Limited | **+16 days** | 🟨 **WARNING:** Financial platform operating inside the risk perimeter. |
 | `upao.edu.pe` | Private University | DigiCert Inc (GeoTrust) | **+19 days** | 🟨 **WARNING:** Academic infrastructure requires proactive rotation scheduling. |
+<img width="1699" height="708" alt="Captura desde 2026-06-13 12-54-55" src="https://github.com/user-attachments/assets/965005d9-76ca-44aa-8af2-a942da203f26" />
+
 
 ---
 
@@ -73,6 +75,8 @@ The scan targeted federal administration systems, cantonal networks, public util
 | **Data Metric** | **8.1% failure/risk rate** (9 out of 111 hosts flagged). | **1.1% risk rate** (2 out of 169 hosts flagged). |
 | **Root Cause** | **Lack of Asset Inventory:** High incidence of forgotten legacy systems, unmonitored free CAs, and insecure self-signed exposures. | **Operational Latency:** Superior asset tracking and premium trusted CAs, but bottlenecked by strict timelines and manual verification boundaries. |
 | **Business Threat** | Potential entry points for malicious exploitation via undocumented, unpatched legacy assets (*Shadow IT*). | Unexpected service downtime across high-traffic, critical critical infrastructure frameworks. |
+<img width="1699" height="708" alt="Captura desde 2026-06-13 12-55-41" src="https://github.com/user-attachments/assets/e4ad5b61-994d-42cc-8f5f-302a618c2780" />
+
 
 
 ## 💻 Technical Implementation Details
