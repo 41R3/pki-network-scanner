@@ -10,6 +10,30 @@ This tool was built to address the exact operational risks that organizations fa
 * **Strict Cryptographic Parsing:** Avoids unreliable regular expressions. It utilizes the native `cryptography` library to safely parse raw DER certificate bytes.
 * **SNI (Server Name Indication) Compatibility:** Fully supports SNI to isolate accurate certificates behind multi-tenant virtual hosts.
 * **DevOps Ready:** Generates standardized JSON to standard output (`stdout`) for easy pipeline integrations, alongside CSV exports for security audits.
+  
+## 📊 Output Data Schema
+
+The scanner produces a consistent schema for every parsed certificate, facilitating easy parsing for automation pipelines or security dashboards.
+
+### Fields Reference (Per Certificate)
+
+| Field Name | Data Type | Description |
+| :--- | :--- | :--- |
+| `host` | `string` | The target IP address or hostname connected to. |
+| `port` | `integer` | The specific TLS port audited during the handshake. |
+| `subject_cn` | `string` \| `null` | The Common Name (CN) extracted from the certificate Subject field. |
+| `sans` | `array[string]` | Subject Alternative Names (DNS entries and IP addresses authorized by the cert). |
+| `issuer_cn` | `string` \| `null` | The Common Name (CN) of the issuing Certificate Authority (CA). |
+| `issuer_org` | `string` \| `null` | The formal Organization Name of the issuing CA (e.g., `Let's Encrypt`, `SwissSign AG`). |
+| `not_before` | `string (ISO 8601)`| The exact timestamp marking the beginning of the certificate's validity period. |
+| `not_after` | `string (ISO 8601)` | The exact timestamp marking the expiration of the certificate. |
+| `days_until_expiry`| `integer` | Remaining lifespan in days relative to execution. **Can be negative** if already expired. |
+| `serial_number` | `string (Hex)` | Unique certificate serial number represented as a lowercase hex string. |
+| `fingerprint_sha256`| `string (Hex)`| The SHA-256 cryptographic hash of the raw certificate, uppercase with colon separators. |
+| `is_self_signed` | `boolean` | `true` if the certificate is self-signed (Subject matches Issuer); `false` otherwise. |
+| `key_usage` | `array[string]` | Authorized cryptographic functions (e.g., `digital_signature`, `key_encipherment`). |
+| `status` | `string` | Risk classification code: `EXPIRED`, `CRITICAL` (<14 days), `WARNING` (<30 days), or `OK`. |
+
 
 ## 📊 Proof of Concept & Real-World Validation (Case Studies)
 
@@ -63,3 +87,4 @@ ctx.verify_mode = ssl.CERT_NONE  # Discovery allows self-signed inspection
 with socket.create_connection((host, port), timeout=timeout) as sock:
     with ctx.wrap_socket(sock, server_hostname=host) as ssock:
         der_bytes = ssock.getpeercert(binary_form=True)
+
